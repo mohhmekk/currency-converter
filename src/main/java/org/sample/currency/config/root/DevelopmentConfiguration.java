@@ -18,11 +18,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFactoryBean;
 
-//import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import javax.annotation.PostConstruct;
 
 /**
- * Development specific configuration - creates a localhost postgresql datasource,
- * sets hibernate on create drop mode and inserts some test data on the database.
+ * Development specific configuration - connects to Mongo database as configured in the properties file.
+ * This profile is used if no other profiles activated.
  * <p/>
  * Set -Dspring.profiles.active=development to activate this config.
  *
@@ -47,6 +47,12 @@ public class DevelopmentConfiguration {
     String mongoPass;
     @Value("${mongo.db.name}")
     String dbName;
+
+    @PostConstruct
+    public void init(){
+        logger.info("--------------------Initializing Development profile---------------------");
+        logger.info("Mongo configurations: {}/{}:{}@{}/{}", mongoHost, dbName, mongoPort, mongoUser, mongoPass);
+    }
 
     public
     @Bean

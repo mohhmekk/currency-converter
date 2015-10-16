@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Currency Exchange App</title>
+    <link rel="stylesheet" href="/resources/bower_components/pure/pure.css">
+    <link rel="stylesheet" href="/resources/bower_components/pure/grids-responsive.css">
+    <link rel="stylesheet" href="/resources/public/css/pure-theme.css">
+    <link rel="stylesheet" href="/resources/public/css/style.css">
+</head>
+<body class="pure-skin-theme" id="currencyExchangeApp" ng-controller="CurrencyExchangeCtrl">
+
+<div class="please-wait-dialog" ng-hide="vm.appReady">
+    <img class="please-wait-spinner" src="/resources/img/loading.gif">
+</div>
+
+<header class="page-header pure-g not-ready" ng-class="{'app-ready': vm.appReady}">
+    <div class="pure-u-lg-1-2 pure-u-1">
+        <span class="header-element page-title">Currency Exchange</span>
+
+    </div>
+    <div class="pure-u-lg-1-2 pure-u-1 utilities">
+        <div class="header-element username">
+            <div class="username-placeholder" ng-hide="vm.userName"></div>
+            <span ng-cloak>{{vm.userName}}</span>
+        </div>
+        <div class="header-element">
+            <a class="logout" href="#" ng-click="logout()">Logout</a>
+        </div>
+    </div>
+</header>
+
+<main class="container not-ready" ng-class="{'app-ready': vm.appReady}" ng-cloak>
+
+    <div class="info-messages"
+         ng-style="{'opacity': vm.infoMessages.length > 0 ? 1 : 0, 'z-index': vm.infoMessages.length > 0 ? 10 : -10}">
+        <img class="info-icon" src="/resources/img/info-icon.png">
+
+        <div class="messages-group">
+            <div ng-repeat="info in vm.infoMessages">{{info.description}}</div>
+        </div>
+    </div>
+
+    <div class="form-messages errors {{extraStyles}}" ng-show="vm.errorMessages.length > 0" ng-cloak>
+        <img class="error-icon" src="/resources/img/error-icon.png">
+
+        <div class="messages-group">
+            <div ng-repeat="error in vm.errorMessages">{{error.description}}</div>
+        </div>
+    </div>
+
+    <div ng-hide="vm.exchangeData" class="pure-form pure-form-aligned search-form">
+        <legend>History</legend>
+
+        <section id="main" ng-show="vm.exchangesHistory.length" ng-cloak>
+            <ul id="history-list">
+                <li ng-repeat="exchange in vm.exchangesHistory | filter:statusFilter track by $index">
+                    <div class="view">
+                        {{exchange.desc}} at {{ exchange.date | date:'dd/MM/yyyy'}}
+                    </div>
+
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div ng-hide="vm.exchangeData">
+        <form class="pure-form pure-form-aligned search-form">
+            <fieldset>
+                <legend>Get Currency Exchange Rate</legend>
+
+                <div class="pure-g pure-form-stacked search-form-content">
+
+                    <div class="pure-u-sm-1-2 pure-u-1 from-field">
+                        <label>Currency </label>
+                        <select name="currencyLeft" ng-model="vm.currencyLeft">
+                            <option ng-repeat="option in vm.currencies" value="{{option.shortName}}">{{option.desc}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="pure-u-sm-1-2 pure-u-1 to-field">
+                        <label>Currency</label>
+                        <select name="currencyRight" ng-model="vm.currencyRight">
+                            <option ng-repeat="option in vm.currencies" value="{{option.shortName}}">{{option.desc}}
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+            </fieldset>
+
+        </form>
+
+        <div class="form-separator"></div>
+
+        <div class="main-controls">
+            <button type="submit" class="pure-button pure-button-primary" ng-click="getExchange()">Get Exchange Rate
+            </button>
+        </div>
+    </div>
+
+    <div ng-show="vm.exchangeData">
+        <form class="pure-form pure-form-aligned search-form">
+            <fieldset>
+                <legend>Currency Exchange Rate</legend>
+
+                <div class="pure-g">
+                    <div class="pure-u-11-24 align-right">1.00 {{vm.exchangeData.leftCurrency.shortName}}</div>
+                    <div class="pure-u-2-24 align-center">=</div>
+                    <div class="pure-u-11-24">{{vm.exchangeData.value}} {{vm.exchangeData.rightCurrency.shortName}}
+                    </div>
+                </div>
+
+                <div class="pure-g">
+                    <div class="pure-u-11-24 align-right">{{vm.exchangeData.leftCurrency.name}}</div>
+                    <div class="pure-u-2-24"></div>
+                    <div class="pure-u-11-24">{{vm.exchangeData.rightCurrency.name}}</div>
+                </div>
+
+                <div class="pure-g">
+                    <div class="pure-u-11-24 align-right">1 {{vm.exchangeData.leftCurrency.shortName}} =
+                        {{vm.exchangeData.value}} {{vm.exchangeData.rightCurrency.shortName}}
+                    </div>
+                    <div class="pure-u-2-24"></div>
+                    <div class="pure-u-11-24">1 {{vm.exchangeData.rightCurrency.shortName}} =
+                        {{vm.exchangeData.inverseValue}} {{vm.exchangeData.leftCurrency.shortName}}
+                    </div>
+                </div>
+
+                <div class="form-separator"></div>
+
+                <div class="pure-g">
+                    <div class="pure-u-1">
+                        <h4>Currency Converter</h4>
+                        <input type="number" name="value" ng-model="vm.value" maxlength="5"/>
+                        <span class="exchange-result">{{vm.value}} {{vm.exchangeData.leftCurrency.shortName}} = {{vm.convertResult}} {{vm.exchangeData.rightCurrency.shortName}}</span>
+                    </div>
+                </div>
+
+                <div class="form-separator"></div>
+
+                <div class="main-controls">
+                    <button type="submit" class="pure-button pure-button-primary" ng-click="getAnotherExchange()">Get
+                        Another Exchange Rate
+                    </button>
+                    <button type="submit" class="pure-button pure-button-primary" ng-click="switchCurrency()">Invert
+                        Currencies
+                    </button>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+</main>
+
+<script type="text/javascript" data-main="/resources/js/run-currency-exchange"
+        src="/resources/bower_components/requirejs/require.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+[
+  {
+    "userName": "test123",
+    "_class": "org.sample.currency.app.model.User",
+    "passwordDigest": "$2a$10$OcJyepv8PH4yFFKCunizlOd9HRpFwChxqeKiuWY/wByQOxk6sK.XW",
+    "email": "test@gmail.com"
+  }
+]

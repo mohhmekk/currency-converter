@@ -51,7 +51,7 @@ public class DevelopmentConfiguration {
     @PostConstruct
     public void init(){
         logger.info("--------------------Initializing Development profile---------------------");
-        logger.info("Mongo configurations: {}/{}:{}@{}/{}", mongoHost, dbName, mongoPort, mongoUser, mongoPass);
+        logger.info("Mongo configurations: {}:{}/{} @{}/{}", mongoHost, mongoPort, dbName , mongoUser, mongoPass);
     }
 
     public

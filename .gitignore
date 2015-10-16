@@ -5,7 +5,6 @@ node_modules
 *.iml
 target/
 target/**
-bower_components
 .project
 .classpath
 

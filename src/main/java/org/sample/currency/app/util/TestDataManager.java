@@ -5,7 +5,7 @@ import org.sample.currency.app.dao.CurrencyRepository;
 import org.sample.currency.app.model.Currency;
 import org.sample.currency.app.model.CurrencyExchangeHistory;
 import org.sample.currency.app.model.User;
-import org.sample.currency.external.CurrencyExchangeService;
+import org.sample.currency.app.external.CurrencyExchangeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,10 @@ import javax.annotation.PreDestroy;
 import java.util.List;
 
 /**
- * This is a initializing bean that:
+ * This is an initializing bean that:
  *  1- Insert currencies in the DB IFF the Currencies collection is empty.
  *  2- Insert sample User account test123/Password1 in User collection.
- *  3- Clean up the User and history collections after execution.
+ *  3- Clean up the history collection after execution.
  *
  * Created by Mohamed Mekkawy.
  */
@@ -47,6 +47,7 @@ public class TestDataManager {
     public void init() throws Exception {
 
         if(currencyRepository.findAll().size() == 0) {
+            logger.info("Currency collection is empty, filling it with fresh currencies.");
             List<Currency> currencyList = currencyExchangeService.getCurrencies();
             currencyRepository.save(currencyList);
         }
@@ -75,6 +76,5 @@ public class TestDataManager {
     void dropTestData() throws Exception {
         logger.info("Clean up test data");
         mongoTemplate.dropCollection(CurrencyExchangeHistory.class);
-        mongoTemplate.dropCollection(User.class);
     }
 }

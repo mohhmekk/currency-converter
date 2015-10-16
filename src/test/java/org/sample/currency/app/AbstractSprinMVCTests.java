@@ -9,6 +9,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+/**
+ * Base for all web test cases, initializes MVC context in addition to spring root context.
+ *
+ */
 @ContextConfiguration(classes = {ServletContextConfig.class})
 @WebAppConfiguration
 public abstract class AbstractSprinMVCTests extends AbstractSpringTests {

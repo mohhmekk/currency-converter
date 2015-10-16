@@ -6,10 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFactoryBean;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -22,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @ComponentScan({"org.sample.currency.app.service", "org.sample.currency.app.dao",
-        "org.sample.currency.app.init", "org.sample.currency.app.security", "org.sample.currency.external"})
+        "org.sample.currency.app.init", "org.sample.currency.app.security", "org.sample.currency.app.external"})
 @PropertySource("classpath:app.properties")
 @EnableMongoRepositories(basePackages = "org.sample.currency.app.dao")
 public class RootContextConfig {

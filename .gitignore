@@ -6,4 +6,6 @@ node_modules
 target/
 target/**
 bower_components
+.project
+.classpath
 

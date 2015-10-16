@@ -1,4 +1,4 @@
-package org.sample.currency.external;
+package org.sample.currency.app.external;
 
 /**
  * Created by Mohamed Mekkawy.

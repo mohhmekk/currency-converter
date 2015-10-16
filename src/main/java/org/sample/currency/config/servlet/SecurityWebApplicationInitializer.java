@@ -1,4 +1,4 @@
-package org.sample.currency.config;
+package org.sample.currency.config.servlet;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;

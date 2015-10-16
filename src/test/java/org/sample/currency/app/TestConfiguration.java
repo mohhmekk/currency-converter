@@ -15,13 +15,6 @@ import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFacto
 
 /**
  * Integration testing specific configuration - creates a in-memory mongo database,
- * <p/>
- * This allows to clone the project repository and start a running application with the command
- * <p/>
- * mvn clean install tomcat7:run-war -Dspring.profiles.active=test
- * <p/>
- * Access http://localhost:8080/ and login with test123 / Password1, in order to see some test data,
- * or create a new user.
  */
 @Configuration
 @Profile("test")

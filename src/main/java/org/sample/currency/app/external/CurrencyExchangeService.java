@@ -1,4 +1,4 @@
-package org.sample.currency.external;
+package org.sample.currency.app.external;
 
 import org.sample.currency.app.controller.currency.dto.CurrencyExchange;
 import org.sample.currency.app.dao.CurrencyRepository;
@@ -58,7 +58,7 @@ public class CurrencyExchangeService {
      * @return list of currencies
      */
     public List<Currency> getCurrencies() {
-        logger.info("Getting list of latest currencies from service url {}, this is a heavy and time consuming operation please try to avoid"
+        logger.info("Getting list of latest currencies from service url {}, this is a time consuming operation please try to avoid"
         , currenciesServiceUrl);
 
         Map<String, String> rawCurrencies = restTemplate.getForObject(currenciesServiceUrl, Map.class);
@@ -124,8 +124,10 @@ public class CurrencyExchangeService {
      * @param responseParameters
      */
     private void checkSuccessfulResponse(Map responseParameters) {
-        if(! (Boolean) responseParameters.get("success")){
-            throw new ExternalServiceException("Error calling service "+currenciesServiceUrl+", error "+responseParameters.get("error"));
+        if(responseParameters.containsKey("success")) {
+            if (!(Boolean) responseParameters.get("success")) {
+                throw new ExternalServiceException("Error calling service " + currenciesServiceUrl + ", error " + responseParameters.get("error"));
+            }
         }
     }
 

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/resources/bower_components/pure/grids-responsive.css">
     <link rel="stylesheet" href="/resources/public/css/pure-theme.css">
     <link rel="stylesheet" href="/resources/public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/resources/public/css/jquery-ui.min.css" />
+
 </head>
 <body class="pure-skin-theme" id="currencyExchangeApp" ng-controller="CurrencyExchangeCtrl">
 
@@ -57,7 +59,7 @@
             <ul id="history-list">
                 <li ng-repeat="exchange in vm.exchangesHistory | filter:statusFilter track by $index">
                     <div class="view">
-                        {{exchange.desc}} at {{ exchange.date | date:'dd/MM/yyyy'}}
+                        {{exchange.desc}} at {{ exchange.date | date:'MM/dd/yyyy'}}
                     </div>
 
                 </li>
@@ -88,6 +90,11 @@
                         </select>
                     </div>
 
+                    <div class="pure-u-sm-1-2 pure-u-1 to-field">
+                        <label>Date</label>
+                        <input type="text" ng-model="vm.datePicker" placeholder="MM/DD/YYYY" datepicker />
+                    </div>
+
                 </div>
             </fieldset>
 
@@ -104,7 +111,7 @@
     <div ng-show="vm.exchangeData">
         <form class="pure-form pure-form-aligned search-form">
             <fieldset>
-                <legend>Currency Exchange Rate</legend>
+                <legend>Currency Exchange Rate ({{ vm.exchangeData.exchangeDate | date:'MM/dd/yyyy'}})</legend>
 
                 <div class="pure-g">
                     <div class="pure-u-11-24 align-right">1.00 {{vm.exchangeData.leftCurrency.shortName}}</div>
@@ -156,6 +163,10 @@
     </div>
 </main>
 
+
+<script type="text/javascript" src="/resources/public/js/datetimepicker/jquery.js"></script>
+<script type="text/javascript" src="/resources/public/js/datetimepicker/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/resources/public/js/datetimepicker/jquery.datetimepicker.js"></script>
 <script type="text/javascript" data-main="/resources/js/run-currency-exchange"
         src="/resources/bower_components/requirejs/require.js"></script>
 

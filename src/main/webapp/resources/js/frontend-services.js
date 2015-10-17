@@ -37,13 +37,14 @@ angular.module('frontendServices', [])
                 return deferred.promise;
             },
 
-            getCurrencyRate: function (currencyLeft, currencyRight) {
+            getCurrencyRate: function (currencyLeft, currencyRight, date) {
                 var deferred = $q.defer();
 
                 $http.get('/currency/exchange', {
                     params: {
                         currencyLeft: currencyLeft,
-                        currencyRight: currencyRight
+                        currencyRight: currencyRight,
+                        date: date
                     }
                 })
                     .then(function (response) {

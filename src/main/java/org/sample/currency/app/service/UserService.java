@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
 
-//import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Business service for User entity related operations
@@ -38,7 +37,6 @@ public class UserService {
      * @param email    - the user email
      * @param password - the user plain text password
      */
-//    @Transactional
     public void createUser(String username, String email, String password) {
 
         logger.info("Creating new user with name {}", username);

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  *
  * Created by Mohamed Mekkawy.
  */
-public final class ValidationUtils {
+public abstract class ValidationUtils {
 
     private ValidationUtils() {
         throw new NotImplementedException("Utility classes cannot be instantiated");

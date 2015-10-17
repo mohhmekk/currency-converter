@@ -1,7 +1,7 @@
 package org.sample.currency.config;
 
 
-import org.sample.currency.config.root.AppSecurityConfig;
+import org.sample.currency.config.servlet.AppSecurityConfig;
 import org.sample.currency.config.root.DevelopmentConfiguration;
 import org.sample.currency.config.root.RootContextConfig;
 import org.sample.currency.config.servlet.ServletContextConfig;

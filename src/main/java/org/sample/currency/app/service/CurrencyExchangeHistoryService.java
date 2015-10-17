@@ -26,8 +26,15 @@ public class CurrencyExchangeHistoryService {
 
     private Logger logger = LoggerFactory.getLogger(CurrencyExchangeHistoryService.class);
 
-    public void saveExchangeHistory(CurrencyExchange currencyExchange){
+    /**
+     * Add entry in the history collection for the passed exchange for the current user.
+     *
+     * @param currencyExchange
+     */
+    public void saveExchangeInUserHistory(CurrencyExchange currencyExchange){
+        //Get current user
         User activeUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         CurrencyExchangeHistory currencyExchangeHistory = new CurrencyExchangeHistory();
 
         currencyExchangeHistory.setFromCurrency(currencyExchange.getLeftCurrency());
@@ -41,7 +48,11 @@ public class CurrencyExchangeHistoryService {
 
     }
 
-    public List<CurrencyExchangeHistory> getExchangeHistory(){
+    /**
+     * Get all entries in exchange history for the current active user.
+     *
+     */
+    public List<CurrencyExchangeHistory> getHistoryForCurrentUser(){
         User activeUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return currencyExchangeHistoryRepository.findByUserId(activeUser.getUsername());
     }

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * The Currency Exchange Rate model class, this is not persisted.
+ * JSON-serializable DTO containing for Currency exchange
  *
  * Created by Mohamed Mekkawy.
  */

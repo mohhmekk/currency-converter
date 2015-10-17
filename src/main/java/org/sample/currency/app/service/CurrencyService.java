@@ -23,7 +23,7 @@ public class CurrencyService {
     private CurrencyRepository currencyRepository;
 
     /**
-     * get list of available currencies.
+     * get all currencies.
      *
      * @return list of currencies
      */

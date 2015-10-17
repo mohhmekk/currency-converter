@@ -13,7 +13,7 @@ public abstract  class Utils {
     /**
      * Checks if the passed date is before Today 00:00
      */
-    public static boolean historicalDataRequested(Date date) {
+    public static boolean beforeToday(Date date) {
         if(date ==null)
             return false;
 

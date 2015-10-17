@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
 import javax.annotation.PostConstruct;
@@ -43,7 +40,7 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
 
     @PostConstruct
     public void init() {
-        configuredCachesMap = new HashMap<String, String>();
+        configuredCachesMap = new HashMap();
         if (configuredCaches != null && configuredCaches.size() != 0) {
             for (String field : configuredCaches) {
                 String[] splittedField = field.split("=");
@@ -52,8 +49,16 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
         }
     }
 
+
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        super.addViewControllers(registry);
+        registry.addRedirectViewController("/", "/resources/public/login.html");
+    }
+
     /**
-     * Static content is configured to be cahced client side for better performance.
+     * Configuring static content.
      *
      */
     @Override
@@ -72,7 +77,6 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
         WebContentInterceptor webContentInterceptor = new WebContentInterceptor();
         Properties cacheMappings = new Properties();
         cacheMappings.putAll(configuredCachesMap);
-//        cacheMappings.setProperty(UrlSchema.API + "/**", "0");
         webContentInterceptor.setCacheMappings(cacheMappings);
         registry.addInterceptor(webContentInterceptor);
     }

@@ -7,6 +7,7 @@ angular.module('currencyExchangeApp', ['frontendServices', 'spring-security-csrf
                 exchangesHistory: [],
                 currencyLeft: null,
                 currencyRight: null,
+                datePicker: null,
                 exchangeData: null,
                 isSelectionEmpty: true,
                 value: 0,
@@ -70,7 +71,7 @@ angular.module('currencyExchangeApp', ['frontendServices', 'spring-security-csrf
                         $scope.vm.errorMessages = [];
 
                         $scope.vm.exchangesHistory = _.map(data, function (exchange) {
-                            exchange.desc = exchange.fromCurrency.shortName + ' = ' + exchange.value + ' ' + exchange.toCurrency.shortName;
+                            exchange.desc = "1 "+ exchange.fromCurrency.shortName + ' = ' + exchange.value + ' ' + exchange.toCurrency.shortName;
                             exchange.date = exchange.exchangeDate;
                             return exchange;
                         });
@@ -100,13 +101,14 @@ angular.module('currencyExchangeApp', ['frontendServices', 'spring-security-csrf
             $scope.getExchange = function () {
                 var left = $scope.vm.currencyLeft;
                 var right = $scope.vm.currencyRight;
+                var date = $scope.vm.datePicker;
 
-                if (left == right) {
+                if (left == null || right == null || left == right) {
                     showErrorMessage("Please select different currencies");
                     return;
                 }
 
-                CurrencyService.getCurrencyRate(left, right)
+                CurrencyService.getCurrencyRate(left, right, date)
                     .then(function (data) {
                         clearMessages();
                         //showInfoMessage("currency exchange loaded successful.");
@@ -166,4 +168,25 @@ angular.module('currencyExchangeApp', ['frontendServices', 'spring-security-csrf
             }
 
 
-        }]);
+        }])
+    .directive("datepicker", function () {
+    return {
+        restrict: "A",
+        require: "ngModel",
+        link: function (scope, elem, attrs, ngModelCtrl) {
+            var updateModel = function (dateText) {
+                scope.$apply(function () {
+                    ngModelCtrl.$setViewValue(dateText);
+                });
+            };
+            var options = {
+                dateFormat: "mm/dd/yy",
+                maxDate: new Date(),
+                onSelect: function (dateText) {
+                    updateModel(dateText);
+                }
+            };
+            elem.datepicker(options);
+        }
+    }
+});

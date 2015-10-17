@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFactoryBean;
 
 /**
- * Integration testing specific configuration - creates a in-memory mongo database,
+ * Integration testing specific configuration - creates an in-memory mongo database.
  */
 @Configuration
 @Profile("test")

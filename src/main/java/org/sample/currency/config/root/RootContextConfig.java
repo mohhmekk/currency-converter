@@ -19,8 +19,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @ComponentScan({"org.sample.currency.app.service", "org.sample.currency.app.dao",
-        "org.sample.currency.app.init", "org.sample.currency.app.security", "org.sample.currency.app.external"})
-@PropertySource("classpath:app.properties")
+        "org.sample.currency.app.init", "org.sample.currency.app.security", "org.sample.currency.app.service.external"})
+@PropertySource("classpath:exchange.properties")
 @EnableMongoRepositories(basePackages = "org.sample.currency.app.dao")
 public class RootContextConfig {
 

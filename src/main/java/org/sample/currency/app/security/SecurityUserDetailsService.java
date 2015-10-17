@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * UserDetails service that reads the user credentials from the database, using a JPA repository.
+ * UserDetails service that reads the user credentials from the database.
  *
  * Created by Mohamed Mekkawy.
  */

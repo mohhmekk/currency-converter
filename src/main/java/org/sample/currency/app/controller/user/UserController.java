@@ -1,8 +1,9 @@
 package org.sample.currency.app.controller.user;
 
 
-import org.sample.currency.app.controller.user.dto.NewUserDTO;
-import org.sample.currency.app.controller.user.dto.UserInfoDTO;
+import org.sample.currency.app.controller.AbstractController;
+import org.sample.currency.app.controller.user.dto.NewUser;
+import org.sample.currency.app.controller.user.dto.UserInfo;
 import org.sample.currency.app.model.User;
 import org.sample.currency.app.service.UserService;
 import org.slf4j.Logger;
@@ -23,34 +24,33 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends AbstractController {
 
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
 
+    /**
+     * Get user information
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
-    public UserInfoDTO getUserInfo(Principal principal) {
+    public UserInfo getUserInfo(Principal principal) {
 
         User user = userService.findUserByUsername(principal.getName());
 
-        return user != null ? new UserInfoDTO(user.getUserName()) : null;
+        return user != null ? new UserInfo(user.getUserName()) : null;
     }
 
+    /**
+     * Create new user
+     */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
-    public void createUser(@RequestBody NewUserDTO user) {
+    public void createUser(@RequestBody NewUser user) {
         userService.createUser(user.getUsername(), user.getEmail(), user.getPlainTextPassword());
-    }
-
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> errorHandler(Exception exc) {
-        logger.error(exc.getMessage(), exc);
-        return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 }

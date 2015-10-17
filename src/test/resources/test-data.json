@@ -14,5 +14,10 @@
     "name": "United States Dollar",
     "_class": "org.sample.currency.app.model.Currency",
     "shortName": "USD"
+  },
+  {
+    "name": "Egyptian Pound",
+    "_class": "org.sample.currency.app.model.Currency",
+    "shortName": "EGP"
   }
 ]

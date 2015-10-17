@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -42,7 +43,7 @@ public class CurrencyControllerTest extends AbstractSprinMVCTests{
                 .principal(new PrincipalImpl(UserServiceTest.USERNAME)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].name", is("United Arab Emirates Dirham")))
                 .andExpect(jsonPath("$[0].shortName", is("AED")))
                 .andExpect(jsonPath("$[1].name", is("United States Dollar")))

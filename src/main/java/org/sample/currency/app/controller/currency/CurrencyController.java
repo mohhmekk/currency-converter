@@ -1,6 +1,7 @@
 package org.sample.currency.app.controller.currency;
 
 
+import org.sample.currency.app.controller.AbstractController;
 import org.sample.currency.app.controller.currency.dto.CurrencyExchange;
 import org.sample.currency.app.model.Currency;
 import org.sample.currency.app.model.CurrencyExchangeHistory;
@@ -11,21 +12,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.sample.currency.app.external.CurrencyExchangeService;
+import org.sample.currency.app.service.external.CurrencyExchangeService;
 import java.util.Date;
 import java.util.List;
 
 /**
- * REST service for currency for the currently logged in user.
+ * REST service for currency exchange services.
  *
  * Created by Mohamed Mekkawy.
  */
 @Controller
 @RequestMapping("currency")
-public class CurrencyController {
+public class CurrencyController extends AbstractController {
 
     private final Logger logger = LoggerFactory.getLogger(CurrencyController.class);
 
@@ -38,6 +38,9 @@ public class CurrencyController {
     @Autowired
     private CurrencyExchangeHistoryService currencyExchangeHistoryService;
 
+    /**
+     * Get list of currencies
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "list")
@@ -50,38 +53,32 @@ public class CurrencyController {
         return result;
     }
 
+    /**
+     * Get exchange rate
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "exchange")
     public CurrencyExchange getCurrencyExchange(@RequestParam(value = "currencyLeft") String currencyLeft,
                                                 @RequestParam(value = "currencyRight") String currencyRight,
                                                 @RequestParam(value = "date", required = false) Date date) {
-
+        logger.debug("getCurrencyExchange({}, {}, {})", currencyLeft, currencyRight, date);
         CurrencyExchange result = currencyExchangeService.getCurrencyExchange(currencyLeft, currencyRight, date);
-        currencyExchangeHistoryService.saveExchangeHistory(result);
+        currencyExchangeHistoryService.saveExchangeInUserHistory(result);
 
         return result;
     }
 
+    /**
+     * Get list of exchange history
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, value = "history")
     public List<CurrencyExchangeHistory> getCurrencyExchangeHistory() {
 
-        return currencyExchangeHistoryService.getExchangeHistory();
+        return currencyExchangeHistoryService.getHistoryForCurrentUser();
 
-    }
-
-    /**
-     * error handler for backend errors - a 400 status code will be sent back, and the body
-     * of the message contains the exception text.
-     *
-     * @param exc - the exception caught
-     */
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> errorHandler(Exception exc) {
-        logger.error(exc.getMessage(), exc);
-        return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 

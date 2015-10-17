@@ -51,11 +51,11 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
 
 
 
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        super.addViewControllers(registry);
-//        registry.addRedirectViewController("/", "/resources/public/login.html");
-//    }
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        super.addViewControllers(registry);
+        registry.addRedirectViewController("/", "/resources/public/login.html");
+    }
 
     /**
      * Configuring static content.

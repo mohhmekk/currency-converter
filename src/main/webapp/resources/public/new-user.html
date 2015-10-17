@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/resources/bower_components/pure/grids-responsive.css">
     <link rel="stylesheet" href="/resources/public/css/pure-theme.css">
     <link rel="stylesheet" href="/resources/public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/resources/public/css/jquery-ui.min.css" />
+
 </head>
 <body class="pure-skin-theme" id="createUserApp">
 
@@ -47,6 +49,13 @@
                         <div ng-message="email">must be a valid email</div>
                     </div>
                 </div>
+
+                <div class="form-field">
+                    <input type="text" ng-focus="focus('birthDate')" ng-blur="blur('birthDate')" ng-model="vm.birthDate"
+                           name="birthDate" class="pure-input-1" placeholder="Birth Date MM/DD/YYYY" datepicker>
+                </div>
+
+
                 <div class="form-field">
                     <input type="password" ng-focus="focus('password')" ng-blur="blur('password')"
                            ng-model="vm.password" name="password" class="pure-input-1" placeholder="Password"
@@ -84,6 +93,9 @@
     </div>
 </main>
 
+<script type="text/javascript" src="/resources/public/js/datetimepicker/jquery.js"></script>
+<script type="text/javascript" src="/resources/public/js/datetimepicker/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/resources/public/js/datetimepicker/jquery.datetimepicker.js"></script>
 <script type="text/javascript" data-main="/resources/public/js/run-create-user-app"
         src="/resources/bower_components/requirejs/require.js"></script>
 

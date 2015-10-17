@@ -13,7 +13,8 @@ angular.module('newUserApp', ['common', 'spring-security-csrf-token-interceptor'
             var postData = {
                 username: $scope.vm.username,
                 plainTextPassword: $scope.vm.password,
-                email: $scope.vm.email
+                email: $scope.vm.email,
+                birthDate: $scope.vm.birthDate
             };
 
             $http({
@@ -36,4 +37,25 @@ angular.module('newUserApp', ['common', 'spring-security-csrf-token-interceptor'
                     }
                 });
         }
-    }]);
+    }])
+    .directive("datepicker", function () {
+        return {
+            restrict: "A",
+            require: "ngModel",
+            link: function (scope, elem, attrs, ngModelCtrl) {
+                var updateModel = function (dateText) {
+                    scope.$apply(function () {
+                        ngModelCtrl.$setViewValue(dateText);
+                    });
+                };
+                var options = {
+                    dateFormat: "mm/dd/yy",
+                    maxDate: new Date(),
+                    onSelect: function (dateText) {
+                        updateModel(dateText);
+                    }
+                };
+                elem.datepicker(options);
+            }
+        }
+    });

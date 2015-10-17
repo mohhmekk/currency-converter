@@ -1,8 +1,7 @@
-# Currency Converter -POC-
+# Currency Converter
 
-<center>
 [![Build Status](https://travis-ci.org/mohhmekk/currency-converter.svg)](https://travis-ci.org/mohhmekk/currency-converter)
-</center>
+
 
 Currency Converter application that is using one of the public currency converter APIs, The application is preconfigured with to use [Currency Layer](https://currencylayer.com) and [Open exchange rates] (https://openexchangerates.org).
 
@@ -40,7 +39,7 @@ Running the application
 3. bower
 4. Maven 3
 
-**Build**
+**Build and Run**
 
 1. First you need to download the front end dependencies using the bower:
 

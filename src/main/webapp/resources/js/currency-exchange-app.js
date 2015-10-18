@@ -101,7 +101,10 @@ angular.module('currencyExchangeApp', ['frontendServices', 'spring-security-csrf
             $scope.getExchange = function () {
                 var left = $scope.vm.currencyLeft;
                 var right = $scope.vm.currencyRight;
-                var date = $scope.vm.datePicker;
+                var date;
+                if($scope.vm.datePicker != '') {
+                     date = $scope.vm.datePicker;
+                }
 
                 if (left == null || right == null || left == right) {
                     showErrorMessage("Please select different currencies");

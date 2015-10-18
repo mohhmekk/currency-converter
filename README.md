@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/mohhmekk/currency-converter.svg)](https://travis-ci.org/mohhmekk/currency-converter)
 
 
-Currency Converter application that uses one of the public currency converter APIs, The application is preconfigured to use [Currency Layer](https://currencylayer.com) and [Open exchange rates] (https://openexchangerates.org).
+Currency Converter web tool that uses one of the public currency converter APIs, The application is preconfigured to use [Currency Layer](https://currencylayer.com) and [Open exchange rates] (https://openexchangerates.org).
 
-Application configurations are managed through the property file `exchange.properties`, while Spring configurations are in the file `application.properties`.
+Application configurations are managed through the property file `exchange.properties`.
 
 Application is built using the following technologies:
 

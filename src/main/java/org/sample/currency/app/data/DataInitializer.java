@@ -23,7 +23,6 @@ import java.util.List;
  * This is an initializing bean that, Used in development profile:
  *  1- Insert currencies in the DB IFF the Currencies collection is empty.
  *  2- Insert sample User account test123/Password1 in User collection.
- *  3- Clean up the history collection after execution.
  *
  * Created by Mohamed Mekkawy.
  */
@@ -76,7 +75,5 @@ public class DataInitializer {
      */
     @PreDestroy
     void dropTestData() throws Exception {
-        logger.info("Clean up test data");
-        mongoTemplate.dropCollection(CurrencyExchangeHistory.class);
     }
 }
